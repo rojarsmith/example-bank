@@ -13,21 +13,21 @@ import example.bank.springboot.basic.pojo.definition.Person;
  * @date 2021-07-31
  */
 @Component
-public class BussinessPersonConstruct implements Person {
+public class BussinessPersonLazy implements Person {
 
 	private Animal animal;
-
-	public BussinessPersonConstruct(@Autowired @Qualifier("cat") Animal animal) {
-		this.animal = animal;
-	}
 
 	@Override
 	public void service() {
 		this.animal.use();
+
 	}
 
+	@Autowired
+	@Qualifier("cat")
 	@Override
 	public void setAnimal(Animal animal) {
+		System.out.println("Delay IoC...");
 		this.animal = animal;
 	}
 

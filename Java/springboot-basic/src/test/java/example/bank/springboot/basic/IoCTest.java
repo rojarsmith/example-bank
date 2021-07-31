@@ -15,9 +15,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import example.bank.springboot.basic.config.AppConfig;
 import example.bank.springboot.basic.config.AppConfig3Party;
 import example.bank.springboot.basic.config.AppConfigComponent;
+import example.bank.springboot.basic.config.AppConfigComponentLazy;
 import example.bank.springboot.basic.config.AppConfigExclude;
 import example.bank.springboot.basic.config.AppConfigScanAll;
 import example.bank.springboot.basic.pojo.BussinessPerson;
+import example.bank.springboot.basic.pojo.BussinessPersonConstruct;
+import example.bank.springboot.basic.pojo.BussinessPersonLazy;
 import example.bank.springboot.basic.pojo.User;
 import example.bank.springboot.basic.pojo.UserComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +78,22 @@ public class IoCTest {
 	void basicIoC() {
 		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigScanAll.class);
 		BussinessPerson person = ctx.getBean(BussinessPerson.class);
+		person.service();
+		((ConfigurableApplicationContext) ctx).close();
+	}
+	
+	@Test
+	void basicIoCConstruct() {
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigScanAll.class);
+		BussinessPersonConstruct person = ctx.getBean(BussinessPersonConstruct.class);
+		person.service();
+		((ConfigurableApplicationContext) ctx).close();
+	}
+	
+	@Test
+	void basicIoCDelay() {
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigComponentLazy.class);
+		BussinessPersonLazy person = ctx.getBean(BussinessPersonLazy.class);
 		person.service();
 		((ConfigurableApplicationContext) ctx).close();
 	}
