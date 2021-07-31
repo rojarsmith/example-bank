@@ -16,6 +16,8 @@ import example.bank.springboot.basic.config.AppConfig;
 import example.bank.springboot.basic.config.AppConfig3Party;
 import example.bank.springboot.basic.config.AppConfigComponent;
 import example.bank.springboot.basic.config.AppConfigExclude;
+import example.bank.springboot.basic.config.AppConfigScanAll;
+import example.bank.springboot.basic.pojo.BussinessPerson;
 import example.bank.springboot.basic.pojo.User;
 import example.bank.springboot.basic.pojo.UserComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +68,14 @@ public class IoCTest {
 		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig3Party.class);
 		DataSource dataSource = ctx.getBean(DataSource.class);
 		assertTrue(dataSource.toString().contains("Source"));
+		((ConfigurableApplicationContext) ctx).close();
+	}
+	
+	@Test
+	void basicIoC() {
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigScanAll.class);
+		BussinessPerson person = ctx.getBean(BussinessPerson.class);
+		person.service();
 		((ConfigurableApplicationContext) ctx).close();
 	}
 
