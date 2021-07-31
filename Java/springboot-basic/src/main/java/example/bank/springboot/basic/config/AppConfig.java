@@ -19,7 +19,7 @@ public class AppConfig {
 
 		user.setId(1L);
 		user.setUserName("user_name_l");
-		user.setNote("note l");
+		user.setNote("note_l");
 		return user;
 	}
 
