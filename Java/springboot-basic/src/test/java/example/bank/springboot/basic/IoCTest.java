@@ -3,6 +3,8 @@ package example.bank.springboot.basic;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.sql.DataSource;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import example.bank.springboot.basic.config.AppConfig;
+import example.bank.springboot.basic.config.AppConfig3Party;
 import example.bank.springboot.basic.config.AppConfigComponent;
 import example.bank.springboot.basic.config.AppConfigExclude;
 import example.bank.springboot.basic.pojo.User;
@@ -55,6 +58,14 @@ public class IoCTest {
 			UserComponent user = ctx.getBean(UserComponent.class);
 		});
 		assertTrue(exception.getMessage().contains("No"));
+		((ConfigurableApplicationContext) ctx).close();
+	}
+
+	@Test
+	void basicComponent3Party() {
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig3Party.class);
+		DataSource dataSource = ctx.getBean(DataSource.class);
+		assertTrue(dataSource.toString().contains("Source"));
 		((ConfigurableApplicationContext) ctx).close();
 	}
 
