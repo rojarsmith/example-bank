@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component;
 public class BeanLifecycle1 implements BeanLifecycle, BeanNameAware, BeanFactoryAware, ApplicationContextAware,
 		InitializingBean, DisposableBean {
 
-	@SuppressWarnings("unused")
 	private BaseBean baseBean = null;
 
 	public BeanLifecycle1(@Autowired @Qualifier("baseBean1") BaseBean baseBean) {
