@@ -19,7 +19,7 @@ import org.springframework.core.annotation.Order;
  */
 @Order(1)
 @Aspect
-public class MyAspect {
+public class MyAspect2 {
 
 	@DeclareParents(value = "example.bank.springboot.basic.aop.example.UserServiceImpl", defaultImpl = UserValidatorImpl.class)
 	public UserValidator userValidator;
@@ -32,30 +32,30 @@ public class MyAspect {
 	public void before(JoinPoint jp, User user) {
 		@SuppressWarnings("unused")
 		Object[] args = jp.getArgs();
-		System.out.println("before ....");
+		System.out.println("2 before ....");
 	}
 
 	@Around("pointCut()")
 	public Object around(ProceedingJoinPoint jp) throws Throwable {
-		System.out.println("around before....");
+		System.out.println("2 around before....");
 		Object proceed = jp.proceed();
-		System.out.println("around after....");
+		System.out.println("2 around after....");
 		return proceed;
 	}
 
 	@After("pointCut()")
 	public void after() {
-		System.out.println("after ....");
+		System.out.println("2 after ....");
 	}
 
 	@AfterReturning("pointCut()")
 	public void afterReturningbefore() {
-		System.out.println("afterReturning ....");
+		System.out.println("2 afterReturning ....");
 	}
 
 	@AfterThrowing("pointCut()")
 	public void afterThrowing() {
-		System.out.println("afterThrowing ....");
+		System.out.println("2 afterThrowing ....");
 	}
 
 }

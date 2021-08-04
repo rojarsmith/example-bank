@@ -16,7 +16,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService = null;
-
+//	private UserServiceImpl userService = null;
+	
 	@RequestMapping("/print")
 	@ResponseBody
 	public User printUser(Long id, String userName, String note) {
@@ -24,8 +25,22 @@ public class UserController {
 		user.setId(id);
 		user.setUserName(userName);
 		user.setNote(note);
-		userService.printUser(user); 
+		userService.printUser(user);
 		return user;
 	}
-	
+
+	@RequestMapping("/vp")
+	@ResponseBody
+	public User validateAndPrint(Long id, String userName, String note) {
+		User user = new User();
+		user.setId(id);
+		user.setUserName(userName);
+		user.setNote(note);
+		UserValidator userValidator = (UserValidator) userService;
+		if (userValidator.validate(user)) {
+			userService.printUser(user);
+		}
+		return user;
+	}
+
 }

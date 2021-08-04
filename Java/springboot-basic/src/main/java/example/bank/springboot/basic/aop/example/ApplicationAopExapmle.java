@@ -14,6 +14,11 @@ public class ApplicationAopExapmle {
 	public MyAspect initMyAspect() {
 		return new MyAspect();
 	}
+	
+	@Bean(name = "myAspect2")
+	public MyAspect2 initMyAspect2() {
+		return new MyAspect2();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationAopExapmle.class, args);
