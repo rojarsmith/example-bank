@@ -1,6 +1,8 @@
 package example.bank.springboot.basic.jpa;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +26,9 @@ public class JpaController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	UserBatchService userBatchService;
 
 	@PostConstruct
 	void init() {
@@ -52,6 +57,31 @@ public class JpaController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("success", update == 1);
 		result.put("user", user);
+		return result;
+	}
+
+	@RequestMapping("/inserts")
+	@ResponseBody
+	public Map<String, Object> insertUsers(String userName1, String note1, String userName2, String note2) {
+		User user1 = new User();
+		user1.setUserName("userName1");
+		user1.setNote("note1");
+		user1.setSex(SexEnum.MALE);
+
+		User user2 = new User();
+		user2.setUserName("userName2");
+		user2.setNote("note2");
+		user2.setSex(SexEnum.MALE);
+
+		List<User> userList = new ArrayList<>();
+		userList.add(user1);
+		userList.add(user2);
+
+		int update = userBatchService.insertUsers(userList);
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("success", update > 0);
+		result.put("user", userList);
 		return result;
 	}
 

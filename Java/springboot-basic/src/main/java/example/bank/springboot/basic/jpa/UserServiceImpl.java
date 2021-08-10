@@ -3,6 +3,7 @@ package example.bank.springboot.basic.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.SERIALIZABLE, timeout = 1)
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public int insertUser(User user) {
 		jpaUserRepository.save(user);
 		return 1;
